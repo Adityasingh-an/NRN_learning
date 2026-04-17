@@ -1,4 +1,5 @@
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { Server, Users, Bot, Layers, Shield, Zap } from 'lucide-react';
 
 export default function Facilities() {
@@ -39,7 +40,7 @@ export default function Facilities() {
     <div className="min-h-screen pt-24 pb-12" style={{ backgroundColor: 'var(--background-color)', color: 'var(--text-primary)' }}>
       <Navbar />
 
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-6 mb-20">
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4">Platform Facilities</h1>
           <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
@@ -59,6 +60,8 @@ export default function Facilities() {
           ))}
         </div>
       </div>
+      
+      <Footer />
     </div>
   );
 }

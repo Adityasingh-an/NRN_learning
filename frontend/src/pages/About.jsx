@@ -1,4 +1,5 @@
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { Play } from 'lucide-react';
 
 export default function About() {
@@ -6,7 +7,7 @@ export default function About() {
     <div className="min-h-screen pt-24 pb-12" style={{ backgroundColor: 'var(--background-color)', color: 'var(--text-primary)' }}>
       <Navbar />
 
-      <div className="max-w-5xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6 mb-20">
         <div className="mb-12 border-b pb-6" style={{ borderColor: 'var(--secondary-bg-color)' }}>
           <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-4">About NRN Smart Learning</h1>
           <p className="text-lg max-w-3xl leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
@@ -44,6 +45,8 @@ export default function About() {
           </div>
         </div>
       </div>
+      
+      <Footer />
     </div>
   );
 }
