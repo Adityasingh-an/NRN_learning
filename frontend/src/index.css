@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+@theme {
+  /* Retaining purely for internal Tailwind matching if needed, though we will rely on strict vars */
+  --color-primary: #ff6b52;
+  --color-secondary: #ff8b77;
+}
+
+:root {
+  --background-color: #0b1622;
+  --secondary-bg-color: #121f2d;
+  --primary-accent: #ff6b52;
+  --text-primary: #ffffff;
+  --text-secondary: #a0aec0;
+  --nav-bg: rgba(11, 22, 34, 0.95);
+}
+
+@layer base {
+  body {
+    background-color: var(--background-color);
+    color: var(--text-primary);
+    font-family: 'Inter', system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: var(--color-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--color-glass-border);
+  }
+  
+  .glass-glow {
+    box-shadow: 0 0 20px rgba(255, 107, 82, 0.15);
+  }
+
+  .text-gradient {
+    background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Custom scrollbar for chat */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Typing animation */
+.typing-dot {
+  animation: typing 1.4s infinite ease-in-out both;
+}
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+@keyframes typing {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
+}
+
+@layer utilities {
+  /* Markdown Styles */
+  .markdown-body p {
+    margin-bottom: 0.75rem;
+  }
+  .markdown-body p:last-child {
+    margin-bottom: 0;
+  }
+  .markdown-body strong {
+    font-weight: 700;
+  }
+  .markdown-body ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .markdown-body ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .markdown-body li {
+    margin-bottom: 0.25rem;
+  }
+  .markdown-body code {
+    background-color: rgba(0,0,0,0.3);
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.25rem;
+    font-family: monospace;
+  }
+}
