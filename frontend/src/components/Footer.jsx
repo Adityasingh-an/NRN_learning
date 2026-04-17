@@ -9,10 +9,10 @@ export default function Footer() {
   const personalDetails = {
     name: "Aditya Singh",
     email: "Adityasing1276@gmail.com",
-    phone: "[ADD YOUR PHONE HERE]", // EDIT THIS LINE
+    phone: "7678948477", 
     location: "Lucknow, Uttar Pradesh",
-    github: "[ADD YOUR GITHUB LINK HERE]", // EDIT THIS LINE
-    linkedin: "[ADD YOUR LINKEDIN LINK HERE]" // EDIT THIS LINE
+    github: "https://github.com/Adityasingh-an", 
+    linkedin: "https://www.linkedin.com/in/aditya-singh-a3173a27a/" 
   };
 
   return (
