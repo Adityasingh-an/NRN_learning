@@ -22,6 +22,7 @@ export default function Footer() {
   // PLACEHOLDERS FOR USER TO EDIT
   const personalDetails = {
     name: "Aditya Singh",
+    portfolio: "https://adityasingh-2000-portfolio.vercel.app/", 
     email: "Adityasing1276@gmail.com",
     phone: "7678948477", 
     location: "Lucknow, Uttar Pradesh",
@@ -80,7 +81,7 @@ export default function Footer() {
         <div className="pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4" style={{ borderColor: 'rgba(255,255,255,0.05)', color: '#4b5563' }}>
           <p className="text-xs font-medium tracking-wide">© 2026 NRN SMART LEARNING. ALL RIGHTS RESERVED.</p>
           <p className="text-xs font-bold tracking-widest uppercase">
-            Created by <span className="text-white hover:text-red-400 transition-colors cursor-pointer">{personalDetails.name}</span>
+            Created by <a href={personalDetails.portfolio} target="_blank" rel="noopener noreferrer" className="text-white hover:text-red-400 transition-colors cursor-pointer decoration-none">{personalDetails.name}</a>
           </p>
         </div>
       </div>

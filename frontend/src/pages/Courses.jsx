@@ -73,9 +73,12 @@ export default function Courses() {
                     </button>
                     <button 
                       onClick={() => {
-                        const enrolled = JSON.parse(localStorage.getItem('nrn_enrollments') || '[]');
+                        const storedId = localStorage.getItem('nrn_nrnid');
+                        const enrollmentsKey = `nrn_enrollments_${storedId && storedId !== 'undefined' ? storedId : 'GUEST'}`;
+                        const enrolled = JSON.parse(localStorage.getItem(enrollmentsKey) || '[]');
+                        
                         if (!enrolled.find(e => e.id === course.id)) {
-                          localStorage.setItem('nrn_enrollments', JSON.stringify([...enrolled, course]));
+                          localStorage.setItem(enrollmentsKey, JSON.stringify([...enrolled, course]));
                           alert(`Enrolled in ${course.title}! Check your dashboard.`);
                         } else {
                           alert("You are already enrolled in this course.");

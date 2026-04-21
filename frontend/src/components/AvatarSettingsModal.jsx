@@ -7,7 +7,32 @@ export default function AvatarSettingsModal({ isOpen, onClose }) {
   const [voices, setVoices] = useState([]);
 
   useEffect(() => {
-    const loadVoices = () => setVoices(window.speechSynthesis.getVoices());
+    const loadVoices = async () => {
+      let filteredVoices = window.speechSynthesis.getVoices();
+      
+      try {
+        const res = await fetch("http://localhost:8000/api/admin/settings/allowed_languages");
+        if (res.ok) {
+          const data = await res.json();
+          const allowed = JSON.parse(data.value || "[]");
+          
+          if (allowed.length > 0) {
+            filteredVoices = filteredVoices.filter(voice => {
+              // Match if the language name (e.g. "Hindi") or lang code (e.g. "hi") is in the allowed list
+              return allowed.some(lang => 
+                voice.name.toLowerCase().includes(lang.toLowerCase()) || 
+                voice.lang.toLowerCase().includes(lang.toLowerCase())
+              );
+            });
+          }
+        }
+      } catch (err) {
+        console.error("Failed to fetch language directives", err);
+      }
+      
+      setVoices(filteredVoices);
+    };
+
     loadVoices();
     if (window.speechSynthesis.onvoiceschanged !== undefined) {
       window.speechSynthesis.onvoiceschanged = loadVoices;

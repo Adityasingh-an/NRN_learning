@@ -27,7 +27,7 @@ export default function Login() {
         localStorage.setItem("nrn_token", data.access_token);
         localStorage.setItem("nrn_user", data.full_name);
         if (data.email) localStorage.setItem("nrn_email", data.email);
-        localStorage.setItem("nrn_nrnid", data.nrn_id); // store ID as well for dashboard
+        if (data.nrn_id) localStorage.setItem("nrn_nrnid", data.nrn_id); // store ID as well for dashboard
         navigate('/tutor');
       } else {
         alert("Login failed: " + data.detail);

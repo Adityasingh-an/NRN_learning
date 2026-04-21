@@ -375,7 +375,11 @@ export default function Admin() {
                           <p className="text-xs text-zinc-500 mt-1">{parentCat ? parentCat.name : 'Unknown Category'}</p>
                         </div>
                         <div className="flex items-center gap-3">
-                          <span className="px-2 py-1 bg-black rounded border border-zinc-800 text-red-500 text-xs">{course.content_type || "PDF"} Ready</span>
+                          {course.file_url ? (
+                            <span className="px-2 py-1 bg-green-500/10 text-green-500 rounded border border-green-500/20 text-[10px] font-bold">MATERIAL ATTACHED</span>
+                          ) : (
+                            <span className="px-2 py-1 bg-zinc-800 text-zinc-500 rounded border border-zinc-700 text-[10px] font-bold">NO MATERIAL (AI ONLY)</span>
+                          )}
                           <button 
                             onClick={() => deleteCourse(course.id)}
                             className="p-2 bg-red-500/10 text-red-500 rounded hover:bg-red-500/20 transition-colors"

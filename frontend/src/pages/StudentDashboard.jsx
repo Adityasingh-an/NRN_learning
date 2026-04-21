@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { User, Mail, Hash, BookOpen } from 'lucide-react';
 
 export default function StudentDashboard() {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     name: '',
     email: '',
@@ -13,13 +15,17 @@ export default function StudentDashboard() {
 
   useEffect(() => {
     // Fetch data locally since it's stored securely in Phase 7 logic
+    const storedId = localStorage.getItem('nrn_nrnid');
+    
     setUserData({
       name: localStorage.getItem('nrn_user') || 'Unknown',
       email: localStorage.getItem('nrn_email') || 'Not registered',
-      nrn_id: localStorage.getItem('nrn_nrnid') || 'NRN-XXXX'
+      // Check if stored ID is null or literally the string "undefined"
+      nrn_id: (storedId && storedId !== 'undefined') ? storedId : 'NRN-GEN-000'
     });
     
-    const enrollments = JSON.parse(localStorage.getItem('nrn_enrollments') || '[]');
+    const enrollmentsKey = `nrn_enrollments_${storedId && storedId !== 'undefined' ? storedId : 'GUEST'}`;
+    const enrollments = JSON.parse(localStorage.getItem(enrollmentsKey) || '[]');
     setEnrolledCourses(enrollments);
   }, []);
 
@@ -57,11 +63,11 @@ export default function StudentDashboard() {
                </div>
                
                <div>
-                 <p className="text-xs uppercase font-bold tracking-widest mb-1" style={{ color: 'var(--text-secondary)' }}>Secure NRN ID</p>
-                 <div className="flex items-center gap-2 font-mono text-sm">
-                   <Hash size={16} style={{ color: 'var(--text-secondary)' }}/> {userData.nrn_id}
-                 </div>
-               </div>
+                  <p className="text-xs uppercase font-bold tracking-widest mb-1" style={{ color: 'var(--text-secondary)' }}>Your NRN ID</p>
+                  <div className="flex items-center gap-2 font-mono text-sm">
+                    <Hash size={16} style={{ color: 'var(--text-secondary)' }}/> {userData.nrn_id}
+                  </div>
+                </div>
              </div>
           </div>
 
@@ -87,8 +93,22 @@ export default function StudentDashboard() {
                         <h4 className="text-xl font-bold">{course.title}</h4>
                         <p className="text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>Status: Active In-Progress</p>
                       </div>
-                      <button className="px-5 py-2 rounded-lg font-bold text-sm" style={{ backgroundColor: 'var(--primary-accent)', color: 'var(--text-primary)' }}>
-                        Resume Learning
+                      <button 
+                        onClick={() => {
+                          if (course.file_url) {
+                            window.open(course.file_url, '_blank');
+                          } else {
+                            navigate('/tutor');
+                          }
+                        }}
+                        className="px-5 py-2 rounded-lg font-bold text-sm transition-all hover:scale-105 active:scale-95 flex flex-col items-center" 
+                        style={{ backgroundColor: 'var(--primary-accent)', color: 'var(--text-primary)' }}
+                        title={course.file_url ? "Opens Reading PDF" : "Opens AI Tutor Session"}
+                      >
+                        <span>Resume Learning</span>
+                        <span className="text-[10px] opacity-70 font-normal">
+                          {course.file_url ? "(Reading Mode)" : "(AI Tutor)"}
+                        </span>
                       </button>
                    </div>
                  ))
