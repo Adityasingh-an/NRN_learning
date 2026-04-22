@@ -11,7 +11,7 @@ export default function AvatarSettingsModal({ isOpen, onClose }) {
       let filteredVoices = window.speechSynthesis.getVoices();
       
       try {
-        const res = await fetch("http://localhost:8000/api/admin/settings/allowed_languages");
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/settings/allowed_languages`);
         if (res.ok) {
           const data = await res.json();
           const allowed = JSON.parse(data.value || "[]");

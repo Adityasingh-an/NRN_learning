@@ -33,7 +33,7 @@ export default function Admin() {
     setIsLoading(true);
     
     try {
-      const res = await fetch("http://localhost:8000/api/admin/login", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
@@ -60,10 +60,10 @@ export default function Admin() {
     setIsLoading(true);
     try {
       const [usrRes, catRes, crsRes, setRes] = await Promise.all([
-        fetch("http://localhost:8000/api/admin/users"),
-        fetch("http://localhost:8000/api/admin/categories"),
-        fetch("http://localhost:8000/api/admin/courses"),
-        fetch("http://localhost:8000/api/admin/settings/allowed_languages")
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/users`),
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/categories`),
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/courses`),
+        fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/settings/allowed_languages`)
       ]);
       
       if(usrRes.ok) setUsers(await usrRes.json());
@@ -95,7 +95,7 @@ export default function Admin() {
     e.preventDefault();
     if (!newCatName) return;
     try {
-      const res = await fetch("http://localhost:8000/api/admin/categories", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/categories`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: newCatName, description: "System generated" })
       });
@@ -119,7 +119,7 @@ export default function Admin() {
         const formData = new FormData();
         formData.append('file', selectedFile);
 
-        const uploadRes = await fetch("http://localhost:8000/api/admin/courses/upload", {
+        const uploadRes = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/courses/upload`, {
           method: "POST",
           body: formData
         });
@@ -133,7 +133,7 @@ export default function Admin() {
       }
 
       // 2. Create Course record
-      const res = await fetch("http://localhost:8000/api/admin/courses", {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/courses`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           title: courseForm.title, 
@@ -163,7 +163,7 @@ export default function Admin() {
   const deleteCourse = async (id) => {
     if(!window.confirm("Are you sure you want to delete this course?")) return;
     try {
-      const res = await fetch(`http://localhost:8000/api/admin/courses/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/courses/${id}`, {
         method: "DELETE"
       });
       if(res.ok) {
@@ -175,7 +175,7 @@ export default function Admin() {
     // Convert "English, Hindi, Spanish" to ["English", "Hindi", "Spanish"]
     const langArray = aiLanguages.split(',').map(s => s.trim()).filter(s => s);
     try {
-      await fetch("http://localhost:8000/api/admin/settings", {
+      await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/settings`, {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ key: "allowed_languages", value: JSON.stringify(langArray) })
       });

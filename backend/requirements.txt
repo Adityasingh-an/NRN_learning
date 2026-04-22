@@ -4,3 +4,7 @@ pydantic
 pydantic-settings
 python-dotenv
 openai
+sqlalchemy
+bcrypt
+PyJWT
+python-multipart

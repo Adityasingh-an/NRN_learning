@@ -24,10 +24,14 @@ if not os.path.exists(UPLOAD_DIR):
 # Mount Static Files
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# Configure CORS so the Frontend can communicate with the Backend
+from app.core.config import settings
+
+# Configure CORS
+origins = settings.ALLOWED_ORIGINS.split(",") if settings.ALLOWED_ORIGINS else ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all development ports for hot-reloading stability
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

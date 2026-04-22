@@ -11,8 +11,8 @@ export default function Courses() {
     const fetchCatalog = async () => {
       try {
         const [crsRes, catRes] = await Promise.all([
-          fetch("http://localhost:8000/api/admin/courses"),
-          fetch("http://localhost:8000/api/admin/categories")
+          fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/courses`),
+          fetch(`${import.meta.env.VITE_API_BASE_URL}/api/admin/categories`)
         ]);
         if (crsRes.ok) setCourses(await crsRes.json());
         if (catRes.ok) setCategories(await catRes.json());

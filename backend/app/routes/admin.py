@@ -89,7 +89,8 @@ async def upload_course_file(file: UploadFile = File(...)):
             shutil.copyfileobj(file.file, buffer)
             
         # Return the public URL
-        file_url = f"http://localhost:8000/static/uploads/{filename}"
+        from app.core.config import settings
+        file_url = f"{settings.BACKEND_URL}/static/uploads/{filename}"
         return {"file_url": file_url}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
