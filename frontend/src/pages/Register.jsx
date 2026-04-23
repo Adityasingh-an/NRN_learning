@@ -65,7 +65,7 @@ export default function Register() {
                   required
                   className="w-full border rounded-xl px-4 py-3 text-white focus:outline-none transition-colors"
                   style={{ backgroundColor: 'var(--background-color)', borderColor: 'rgba(255,255,255,0.1)' }}
-                  placeholder="John Doe"
+                  placeholder="Name"
                 />
               </div>
 
@@ -78,7 +78,7 @@ export default function Register() {
                   required
                   className="w-full border rounded-xl px-4 py-3 text-white focus:outline-none transition-colors"
                   style={{ backgroundColor: 'var(--background-color)', borderColor: 'rgba(255,255,255,0.1)' }}
-                  placeholder="john@example.com"
+                  placeholder="Name12@example.com"
                 />
               </div>
 
